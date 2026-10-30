@@ -13,3 +13,13 @@ __pycache__/
 
 # macOS
 .DS_Store
+# Keep personal source documents and generated media local.
+*.pdf
+*.epub
+*.txt
+!requirements.txt
+!sample.txt
+*.mp3
+*.wav
+.env
+.env.*

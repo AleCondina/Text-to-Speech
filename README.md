@@ -2,7 +2,7 @@
 
 Turn any book (`.txt`, `.epub`, `.pdf`) into an MP3 audiobook — entirely on your own
 machine, no cloud, no API keys. Powered by [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M),
-an open-weight TTS model with near-ElevenLabs narration quality.
+an open-weight neural text-to-speech model.
 
 ## Quick start (Mac)
 
@@ -58,9 +58,9 @@ python -m venv .venv
 .venv\Scripts\python audiobook.py mybook.epub
 ```
 
-The script auto-detects CUDA. Expect roughly 30-60x real-time — a 10-hour
-audiobook in ~10-20 minutes. (The M1 Mac does roughly 3-5x real-time, so a full
-book overnight is also perfectly doable.)
+The script auto-detects CUDA and otherwise uses CPU. Throughput depends on the
+hardware, voice, input, and installed PyTorch build; no reproducible performance
+benchmark is included.
 
 ## Format notes
 
@@ -75,3 +75,20 @@ Kokoro uses fixed preset voices. If you want to narrate in a *custom* voice
 (cloned from a ~10-second sample), the same pipeline can be swapped to
 [Chatterbox](https://github.com/resemble-ai/chatterbox) or XTTS-v2 on the RTX PC.
 They're slower and heavier, but the extract/chunk/stitch code here stays the same.
+
+## Sample and source material
+
+`sample.txt` is original demonstration text written for this repository cleanup.
+Preview it with `python audiobook.py sample.txt --list` or synthesize it with
+`python audiobook.py sample.txt`. Use source material you have permission to process
+and distribute. Personal books and generated audio are ignored by Git.
+
+The book-specific extraction helper was removed; `audiobook.py` remains the general
+TXT/EPUB/PDF entry point. Previously committed book material can still exist in
+Git history; removing current files does not purge older commits.
+
+## Project scope
+
+This project runs inference with a pretrained Kokoro model. It does not train or
+fine-tune a model. Initial model and voice downloads require internet access;
+subsequent inference can run locally once the required assets are cached.
