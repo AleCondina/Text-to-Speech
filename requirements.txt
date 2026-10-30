@@ -1,0 +1,5 @@
+kokoro>=0.9
+soundfile
+pymupdf
+ebooklib
+beautifulsoup4
